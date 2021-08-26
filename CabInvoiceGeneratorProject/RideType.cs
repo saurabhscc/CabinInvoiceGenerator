@@ -9,6 +9,6 @@ namespace CabInvoiceGeneratorProject
     /// </summary>
     public enum RideType
     {
-        NORMAL, PREMIUM
+        NORMAL_RIDE
     }
 }

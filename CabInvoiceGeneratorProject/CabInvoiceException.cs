@@ -14,9 +14,10 @@ namespace CabInvoiceGeneratorProject
         /// </summary>
         public enum ExceptionType
         {
-            INVALID_RIDE_TYPE,
+            
             INVALID_DISTANCE,
             INVALID_TIME,
+            INVALID_RIDE_TYPE,
             NULL_RIDES,
             INVALID_USER_ID
         }

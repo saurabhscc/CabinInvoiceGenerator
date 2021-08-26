@@ -4,6 +4,7 @@ using System.Text;
 
 namespace CabInvoiceGeneratorProject.CabInvoiceGeneratorProject
 {
+    //model class
     /// <summary>
     /// ride class to set data for particular ride
     /// </summary>
