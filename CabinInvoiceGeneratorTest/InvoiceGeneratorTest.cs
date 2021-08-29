@@ -43,6 +43,23 @@ namespace CabinInvoiceGeneratorTest
                 InvoiceSummary expected = invoice.CalculateFare(rides);
                 Assert.AreEqual(summary.averageFare, expected.averageFare);
             }
+            [Test]
+            public void GivenUserId_WhenAnalyze_ShouldReturnFareForUser()
+            {
+                Ride[] ride1 = { new Ride(6, 15), new Ride(12, 30), new Ride(18, 45) };
+                Ride[] ride2 = { new Ride(8, 16), new Ride(12, 24), new Ride(16, 32) };
+                Ride[] ride3 = { new Ride(10, 18), new Ride(20, 36),new Ride(30, 48) };
+
+                RideRepository rideRepository = new RideRepository();
+                rideRepository.AddRides(1, ride1);
+                rideRepository.AddRides(2, ride2);
+                rideRepository.AddRides(3, ride3);
+                var rideArray = rideRepository.GetRides(1);
+                InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL_RIDE);
+                InvoiceSummary summary = new InvoiceSummary(3, 450);
+                InvoiceSummary expected = invoice.CalculateFare(rideArray);
+                Assert.AreEqual(summary.totalFare, expected.totalFare);
+            }
         }
     }
 }
