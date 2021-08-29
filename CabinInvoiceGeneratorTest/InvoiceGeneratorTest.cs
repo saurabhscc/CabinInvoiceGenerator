@@ -1,4 +1,5 @@
 using CabInvoiceGeneratorProject;
+using CabInvoiceGeneratorProject.CabInvoiceGeneratorProject;
 using NUnit.Framework;
 
 namespace CabinInvoiceGeneratorTest
@@ -19,6 +20,17 @@ namespace CabinInvoiceGeneratorTest
                 double fare = invoice.CalculateFare(distance, time);
                 double expected = 25;
                 Assert.AreEqual(expected, fare);
+            }
+            [Test]
+            public void GivenMultipleRides_WhenAnalyze_ShouldReturnTotalFaresOfMultipleRides()
+            {
+                InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL_RIDE);
+
+                Ride[] rides = { new Ride(6,15), new Ride(12,30), new Ride(18, 45), };
+
+                InvoiceSummary summary = new InvoiceSummary(3, 450);
+                InvoiceSummary expected = invoice.CalculateFare(rides);
+                Assert.AreEqual(summary.totalFare, expected.totalFare);
             }
         }
     }

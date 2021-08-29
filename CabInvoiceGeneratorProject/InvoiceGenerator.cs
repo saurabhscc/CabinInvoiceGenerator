@@ -8,7 +8,7 @@ namespace CabInvoiceGeneratorProject
     public class InvoiceGenerator
     {
         /// Declaring the object of the class RideType so as to differentiate the data attributes as time and distance.
-        public RideType rideType;
+        RideType rideType;
         /// attributes acting as constant variable.
         private  double MINIMUM_COST_PER_KM;
         private int COST_PER_TIME;
@@ -59,6 +59,26 @@ namespace CabInvoiceGeneratorProject
             }
             //Return the Max. Value
             return Math.Max(totalFare, MINIMUM_FARE);
+        }
+        public InvoiceSummary CalculateFare(Ride[] rides)
+        {
+            double totalFare = 0;
+            try
+            {
+                
+                foreach (Ride ride in rides)
+                {
+                    totalFare += this.CalculateFare(ride.distance, ride.time);
+                }
+            }
+            catch (CabInvoiceException )
+            {
+                if (rides == null)
+                {
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDES, "No rides found");
+                }
+            }
+            return new InvoiceSummary(rides.Length, totalFare);
         }
     }
 }
