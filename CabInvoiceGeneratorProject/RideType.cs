@@ -5,7 +5,7 @@ using System.Text;
 namespace CabInvoiceGeneratorProject
 {
     /// <summary>
-    /// Enum for the Normal and the premium rides for cab
+    /// Enum for the Normal  ride for cab
     /// </summary>
     public enum RideType
     {
