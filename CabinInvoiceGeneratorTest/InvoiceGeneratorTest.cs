@@ -26,11 +26,22 @@ namespace CabinInvoiceGeneratorTest
             {
                 InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL_RIDE);
 
-                Ride[] rides = { new Ride(6,15), new Ride(12,30), new Ride(18, 45), };
+                Ride[] rides = { new Ride(6, 15), new Ride(12, 30), new Ride(18, 45), };
 
                 InvoiceSummary summary = new InvoiceSummary(3, 450);
                 InvoiceSummary expected = invoice.CalculateFare(rides);
                 Assert.AreEqual(summary.totalFare, expected.totalFare);
+            }
+            [Test]
+            public void GivenMultipleRides_WhenAnalyze_ShouldReturnAverageFaresOfMultipleRides()
+            {
+                InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL_RIDE);
+
+                Ride[] rides = { new Ride(6, 15), new Ride(12, 30), new Ride(18, 45), };
+
+                InvoiceSummary summary = new InvoiceSummary(3, 450);
+                InvoiceSummary expected = invoice.CalculateFare(rides);
+                Assert.AreEqual(summary.averageFare, expected.averageFare);
             }
         }
     }
