@@ -10,20 +10,40 @@ namespace CabInvoiceGeneratorProject
         /// Declaring the object of the class RideType so as to differentiate the data attributes as time and distance.
         RideType rideType;
         /// attributes acting as constant variable.
-        private  double MINIMUM_COST_PER_KM;
+        private double MINIMUM_COST_PER_KM;
         private int COST_PER_TIME;
-        private  double MINIMUM_FARE;
+        private double MINIMUM_FARE;
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
         /// <param name="rideType">Type of the ride.</param>
         public InvoiceGenerator(RideType rideType)
         {
-                this.rideType = rideType;
-                this.MINIMUM_COST_PER_KM = 10;
-                this.COST_PER_TIME = 1;
-                this.MINIMUM_FARE = 5;      
+            this.rideType = rideType;
+            try
+            {
+                if (rideType.Equals(RideType.NORMAL_RIDE))
+                {
+                    this.rideType = rideType;
+                    this.MINIMUM_COST_PER_KM = 10;
+                    this.COST_PER_TIME = 1;
+                    this.MINIMUM_FARE = 5;
+                }
+
+                if (rideType.Equals(RideType.PREMIUM_RIDE))
+                {
+                    this.rideType = rideType;
+                    this.MINIMUM_COST_PER_KM = 15;
+                    this.COST_PER_TIME = 2;
+                    this.MINIMUM_FARE = 20;
+                }
+            }
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_RIDE_TYPE, "Invalid Ride Type");
+            }
         }
+
         /// <summary>
         /// Method to Compute the total fare of the cab journey when passed with distance and time.
         /// </summary>
@@ -34,6 +54,8 @@ namespace CabInvoiceGeneratorProject
         /// Invalid distance
         /// or
         /// Invalid time
+        /// or
+        /// ride type
         /// </exception>
         public double CalculateFare(double distance, int time)
         {
@@ -65,13 +87,13 @@ namespace CabInvoiceGeneratorProject
             double totalFare = 0;
             try
             {
-                
+
                 foreach (Ride ride in rides)
                 {
                     totalFare += this.CalculateFare(ride.distance, ride.time);
                 }
             }
-            catch (CabInvoiceException )
+            catch (CabInvoiceException)
             {
                 if (rides == null)
                 {
@@ -109,3 +131,4 @@ namespace CabInvoiceGeneratorProject
         }
     }
 }
+   
